@@ -41,6 +41,9 @@ def parse_arguments():
 def main():
     args = parse_arguments()
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+    print(device)
+    if torch.cuda.is_available():
+        print(torch.cuda.get_device_name(0))
     save_dir = Path("/kaggle/working")/args.experiment
     save_dir.mkdir(exist_ok=True,parents=True)
     with open(save_dir/"arg.txt","w") as arg_file:
@@ -104,7 +107,7 @@ def main():
         running_sloss = running_sloss/num_batches
         if (epoch+1)%args.log_interval==0 or (epoch+1)==args.epochs:
             tqdm.write(f"Iter{epoch+1}: Loss: {running_loss:4f} Content loss: {running_closs:4f} Style loss: {running_sloss:4f}")
-        if (epoch+1)%args.save_interval==0:
+        if (epoch+1)%args.save_interval==0 or (epoch+1)==args.epochs:
             checkpoint = {"epoch":epoch,"decoder":decoder.state_dict(),"optimizer":optimizer.state_dict(),"scheduler":scheduler.state_dict()}
             torch.save(checkpoint,save_dir/f"checkpoint_epoch_{epoch+1}.pth")
             torch.save(checkpoint,save_dir/"latest_checkpoint.pth")

@@ -2,6 +2,11 @@ from torch.utils.data import Dataset
 import os
 from PIL import Image
 from torchvision import transforms
+from PIL import ImageFile
+
+
+ImageFile.LOAD_TRUNCATED_IMAGES=True
+Image.MAX_IMAGE_PIXELS = None
 
 
 
@@ -16,11 +21,16 @@ class Imagefolderdataset(Dataset):
     def __len__(self):
         return len(self.files)
     def __getitem__(self,idx):
-        image_path = os.path.join(self.root,self.files[idx])
-        image = Image.open(image_path).convert("RGB")
-        if self.transform:
-            image = self.transform(image)
-        return image
+        while True:
+            image_path = os.path.join(self.root,self.files[idx])
+            try:
+                image = Image.open(image_path).convert("RGB")
+                if self.transform:
+                    image = self.transform(image)
+                return image
+            except Exception as e:
+                print(f"Skipping corrupted images: {image_path}({e})")
+            idx = (idx+1)%len(self.files)
 def get_transform(size,crop,final_size):
     transform_list = []
     if size>0:

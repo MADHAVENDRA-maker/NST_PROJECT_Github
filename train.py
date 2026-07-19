@@ -64,6 +64,8 @@ def main():
     )
     start_epoch = 0
     if args.resume:
+        if args.checkpoint_path is None:
+            raise ValueError("Please provide --checkpoint_path when using --resume")
         checkpoint = torch.load(args.checkpoint_path,map_location=device)
         decoder.load_state_dict(checkpoint["decoder"])
         optimizer.load_state_dict(checkpoint["optimizer"])

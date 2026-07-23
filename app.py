@@ -53,22 +53,42 @@ def allowed_file(filename):
         "." in filename and filename.rsplit(".",1)[1].lower() in app.config["ALLOWED_EXTENSIONS"]
     )
 def style_transfer(content_image,style_image,encoder,decoder,alpha,device):
+    print("1. Entered style_transfer", flush=True)
+
     content_transform = transforms.Compose([
-        transforms.Resize(256),
+        transforms.Resize((256, 256)),
         transforms.ToTensor()
     ])
+
     style_transform = transforms.Compose([
-        transforms.Resize(256),
+        transforms.Resize((256, 256)),
         transforms.ToTensor()
     ])
+
+    print("2. Transforms created", flush=True)
+
     content_image = content_transform(content_image).unsqueeze(0).to(device)
+    print("3. Content tensor created", flush=True)
+
     style_image = style_transform(style_image).unsqueeze(0).to(device)
+    print("4. Style tensor created", flush=True)
+
     with torch.no_grad():
-        content_feats = encoder(content_image,is_test=True)
-        style_feats = encoder(style_image,is_test=True)
-        stylized_feats = adaptive_instance_normalization(content_feats,style_feats)
-        stylized_feats = alpha*stylized_feats + (1-alpha)*content_feats
+
+        print("5. Running content encoder", flush=True)
+        content_feats = encoder(content_image, is_test=True)
+
+        print("6. Running style encoder", flush=True)
+        style_feats = encoder(style_image, is_test=True)
+
+        print("7. Running AdaIN", flush=True)
+        stylized_feats = adaptive_instance_normalization(content_feats, style_feats)
+
+        print("8. Running decoder", flush=True)
         stylized_image = decoder(stylized_feats)
+
+        print("9. Finished", flush=True)
+
         return stylized_image
 def save_image(image,path):
     image = image.cpu().clone()

@@ -36,7 +36,7 @@ class Uploadform(FlaskForm):
     style_path = HiddenField()
     alpha = FloatField("Alpha",default=1.0)
     submit = SubmitField("Transfer style")
-device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+device = torch.device("cpu")
 encoder = VGGEncoder("vgg_normalised.pth").to(device)
 decoder = Decoder().to(device)
 checkpoint = torch.load("experiment/checkpoint_epoch_10.pth",map_location=device)

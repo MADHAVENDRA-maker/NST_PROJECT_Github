@@ -39,7 +39,7 @@ class Uploadform(FlaskForm):
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 encoder = VGGEncoder("vgg_normalised.pth").to(device)
 decoder = Decoder().to(device)
-checkpoint = torch.load("C:/Desktop-1/NST_PROJECT_TEST/experiment/checkpoint_epoch_10.pth",map_location=device)
+checkpoint = torch.load("C:/Desktop-1/NST_PROJECT_GITHUB/experiment/checkpoint_epoch_10.pth",map_location=device)
 state_dict = checkpoint["decoder"]
 new_state_dict = {}
 for key,value in state_dict.items():

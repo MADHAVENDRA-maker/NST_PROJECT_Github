@@ -33,7 +33,7 @@ def parse_arguments():
         "--checkpoint",
         type=str,
         help="Decoder checkpoint",
-        default="experiment/checkpoint_epoch_10.pth"
+        default="checkpoint_epoch_10.pth"
     )
 
     parser.add_argument(

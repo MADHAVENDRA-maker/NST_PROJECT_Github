@@ -26,7 +26,6 @@ The project uses a dataset of **19,501 images** for training and experimentation
 2. Extract feature representations from both images using a pretrained VGG19 network.
 3. Apply Adaptive Instance Normalization to align the content features with the style image's feature statistics.
 4. Decode the transformed features to generate the stylized image.
-5. Display the resulting image through the web interface.
 
 ## Installation and Setup
 
@@ -41,12 +40,6 @@ cd NST_PROJECT_Github
 
 ```bash
 pip install -r requirements.txt
-```
-
-**3. Run the application**
-
-```bash
-python app.py
 ```
 
 Ensure that the required pretrained model weights are available at the paths expected by the application.

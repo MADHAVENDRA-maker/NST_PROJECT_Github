@@ -8,7 +8,6 @@ Neural Style Transfer is a deep learning project that combines the content of on
 - VGG19-based feature extraction
 - Adaptive Instance Normalization (AdaIN) for style transfer
 - Image processing and generation using PyTorch
-- Flask-based web interface
 - Pretrained model checkpoints for inference
 
 ## Dataset

@@ -48,5 +48,3 @@ Ensure that the required pretrained model weights are available at the paths exp
 
 **Madhavendra Gautam**  
 Indian Institute of Technology Jammu
-
-Interested in deep learning, computer vision, and generative AI.

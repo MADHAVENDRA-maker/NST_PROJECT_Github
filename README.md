@@ -19,8 +19,6 @@ The project uses a dataset of **19,501 images** for training and experimentation
 - **Deep Learning:** PyTorch, Torchvision
 - **Model Architecture:** VGG19
 - **Style Transfer:** Adaptive Instance Normalization (AdaIN)
-- **Backend:** Python, Flask
-- **Deployment:** Hugging Face Spaces, Render
 
 ## How It Works
 
